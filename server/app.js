@@ -1,8 +1,7 @@
 const config  = require('./model/config'),
       restify = require('restify'),
       corsMiddleware = require('restify-cors-middleware'),
-      jwt = require('jsonwebtoken'),
-      fs = require('fs');
+      jwt = require('jsonwebtoken');
 
 /* cross origin http */
 const cors = corsMiddleware( { origins: ['http://127.0.0.1:5500'] } );
