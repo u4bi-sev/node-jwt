@@ -59,4 +59,38 @@ server.post('/user', (req, res) => {
 
 });
 
+
+server.post('/token', (req, res) => {
+    
+    const { token } = req.body;
+    let message = '';
+
+    jwt.verify(
+        token,
+        secret,
+        (err, decoded) => {
+
+            console.log('\nisVerify:', err === null);
+
+            if(err) {
+                // unverify
+                message = `${ (err.name === 'NotBeforeError' && '비활성') || (err.name === 'TokenExpiredError' && '만료') || '미인증' } 토큰`;
+
+
+                res.send({
+                    isVerify : false,
+                    message : message
+                });
+                //
+            } else {
+                res.send({
+                    isVerify : true,
+                    payload : decoded
+                })
+            }
+        }
+    );
+
+});
+
 server.listen(7778, () => console.log(server.name, server.url));
